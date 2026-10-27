@@ -12,8 +12,10 @@ namespace MidtermExam.Prob02
     {
         // ประวัติหน้าที่สามารถย้อนกลับได้: หน้าบนสุดคือหน้าที่ Back() จะเปิดถัดไป
         private Stack<string> backHistory = new Stack<string>();
+
         // ประวัติหน้าที่สามารถไปข้างหน้าได้: หน้าบนสุดคือหน้าที่ Forward() จะเปิดถัดไป
         private Stack<string> forwardHistory = new Stack<string>();
+
         // หน้าที่กำลังเปิดอยู่ แยกจากทั้งสอง Stack; ข้อความว่างหมายถึงยังไม่เคยเปิดหน้าเว็บ
         private string currentUrl = string.Empty;
 
@@ -29,8 +31,13 @@ namespace MidtermExam.Prob02
         /// </remarks>
         public void Open(string url)
         {
-            // TODO: เขียนคำตอบแทนคำสั่ง throw exception ด้านล่าง
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(url)) return;
+
+            if (!string.IsNullOrEmpty(currentUrl))
+                backHistory.Push(currentUrl);
+
+            currentUrl = url;
+            forwardHistory.Clear();
         }
 
         /// <summary>ย้อนกลับไปยังหน้าล่าสุดในประวัติย้อนกลับหนึ่งขั้น</summary>
@@ -40,8 +47,10 @@ namespace MidtermExam.Prob02
         /// </remarks>
         public void Back()
         {
-            // TODO: เขียนคำตอบแทนคำสั่ง throw exception ด้านล่าง
-            throw new NotImplementedException();
+            if (backHistory.Count == 0) return;
+
+            forwardHistory.Push(currentUrl);
+            currentUrl = backHistory.Pop();
         }
 
         /// <summary>ไปข้างหน้าไปยังหน้าล่าสุดในประวัติไปข้างหน้าหนึ่งขั้น</summary>
@@ -51,17 +60,17 @@ namespace MidtermExam.Prob02
         /// </remarks>
         public void Forward()
         {
-            // TODO: เขียนคำตอบแทนคำสั่ง throw exception ด้านล่าง
-            throw new NotImplementedException();
+            if (forwardHistory.Count == 0) return;
+
+            backHistory.Push(currentUrl);
+            currentUrl = forwardHistory.Pop();
         }
 
         /// <summary>อ่าน URL ของหน้าปัจจุบัน โดยไม่เปลี่ยนหน้าหรือประวัติใด ๆ</summary>
         /// <returns>URL ปัจจุบัน หรือ string.Empty ถ้ายังไม่เคยเปิดหน้าเว็บ</returns>
         public string Current()
         {
-            // TODO: คืนค่าหน้าที่ติดตามอยู่ใน currentUrl แทนคำสั่ง throw ด้านล่าง
-            // เมธอดนี้ใช้เพื่ออ่านสถานะเท่านั้น จึงไม่ต้อง Push(), Pop() หรือ Clear() ประวัติ
-            throw new NotImplementedException();
+            return currentUrl;
         }
     }
 }

@@ -20,10 +20,32 @@ namespace MidtermExam.Prob01
         /// ตัวอย่าง: ["a", "b", "e", "a"] จะต้อง return 3 
         /// และคิวหลังเรียกยังเป็น ["a", "b", "e", "a"] เหมือนเดิม
         /// </remarks>
+            
         public int AS01_CountVowels(Queue<string> alphabets)
         {
             // TODO: เขียนคำตอบแทนคำสั่ง throw exception ด้านล่าง
-            throw new NotImplementedException();
+            if (alphabets == null || alphabets.Count == 0)
+            {
+                return 0;
+            }
+
+            int vowelCount = 0;
+            int originalCount = alphabets.Count;
+
+            for (int i = 0; i < originalCount; i++)
+            {
+                string item = alphabets.Dequeue();
+
+                if (item == "a" || item == "e" || item == "i" ||
+                    item == "o" || item == "u")
+                {
+                    vowelCount++;
+                }
+
+                alphabets.Enqueue(item);
+            }
+
+            return vowelCount;
         }
     }
 }

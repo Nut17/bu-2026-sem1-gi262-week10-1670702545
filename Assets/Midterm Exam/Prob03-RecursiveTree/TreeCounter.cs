@@ -2,6 +2,20 @@ using System;
 
 namespace MidtermExam.Prob03
 {
+    public class Node
+    {
+        public int value;
+        public Node left;
+        public Node right;
+
+        public Node(int val = 0, Node leftNode = null, Node rightNode = null)
+        {
+            value = val;
+            left = leftNode;
+            right = rightNode;
+        }
+    }
+
     public class TreeCounter
     {
         /// <summary>ข้อ 03: นับจำนวนโหนดทั้งหมดใน Binary Tree ด้วยฟังก์ชันเรียกซ้ำ (Recursion)</summary>
@@ -16,8 +30,11 @@ namespace MidtermExam.Prob03
         /// </remarks>
         public int AS03_CountTotalNode(Node root)
         {
-            // TODO: เขียนคำตอบแทนคำสั่ง throw ด้านล่าง
-            throw new NotImplementedException();
+            if (root == null) return 0;
+
+            return 1
+                + AS03_CountTotalNode(root.left)
+                + AS03_CountTotalNode(root.right);
         }
     }
 }
